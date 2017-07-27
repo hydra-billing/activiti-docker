@@ -20,6 +20,8 @@ RUN unzip activiti-${ACTIVITI_VERSION}.zip -d /usr/local/
 WORKDIR /usr/local/activiti-${ACTIVITI_VERSION}/wars
 RUN ls * | xargs -I{} sh -c 'mkdir /usr/local/tomcat/webapps/${1%.*}' -- {} \
  && ls * | xargs -I{} sh -c 'unzip $1 -d /usr/local/tomcat/webapps/${1%.*}/' -- {}
+RUN rm -rf /usr/local/tomcat/webapps/ROOT/* \
+ && find /usr/local/tomcat/webapps -mindepth 1 -maxdepth 1 -type d -not -name "activiti*" -not -name "\." -not -name "ROOT" -exec rm -rf '{}' \;
 RUN rm -rf /tmp/*
 
 ENTRYPOINT ["/entrypoint.sh"]
