@@ -5,5 +5,5 @@ if [ $? -ne 0 ]; then
 	echo "Container start failed, now exiting..."
 	exit 1
 else
-	catalina.sh run
+	/usr/local/tomcat/bin/catalina.sh run
 fi
